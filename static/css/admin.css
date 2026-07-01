@@ -1,0 +1,43 @@
+/* ShopSphere Admin Panel Theme (CSS only) */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+#header {
+    background: #2E4540 !important;
+    color: #ffffff;
+}
+
+#branding h1,
+#branding h1 a {
+    color: #B5B9F0 !important;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+}
+
+.module h2,
+.module caption {
+    background: #408175 !important;
+}
+
+div.breadcrumbs {
+    background: #1a1a2e !important;
+}
+
+a:link, a:visited {
+    color: #408175;
+}
+
+.button, input[type=submit], input[type=button], .submit-row input {
+    background: #408175 !important;
+}
+
+.button:hover, input[type=submit]:hover {
+    background: #2f6359 !important;
+}
+
+#user-tools a {
+    color: #B5B9F0;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+}

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Order Success{% endblock %}
+
+{% block content %}
+
+<div class="success-card">
+    <div class="success-icon">
+        <i class="bi bi-check2"></i>
+    </div>
+
+    <h2 class="text-white mb-2">Order Placed Successfully!</h2>
+    <p class="text-muted small mb-4">Thank you for shopping with ShopSphere. Your order is being processed.</p>
+
+    <!-- Details Card (Updated to dark scheme success-details-card) -->
+    <div class="success-details-card text-start mb-4">
+        <div class="d-flex justify-content-between mb-2">
+            <span class="text-muted small uppercase fw-semibold">Order ID</span>
+            <strong class="text-white">#{{ order.id }}</strong>
+        </div>
+        <div class="d-flex justify-content-between mb-2">
+            <span class="text-muted small uppercase fw-semibold">Total Amount</span>
+            <strong class="text-white">&#8377;{{ order.total_amount }}</strong>
+        </div>
+        <div class="d-flex justify-content-between mb-0">
+            <span class="text-muted small uppercase fw-semibold">Status</span>
+            <strong class="text-accent">{{ order.status }}</strong>
+        </div>
+    </div>
+
+    <div class="d-flex gap-3 justify-content-center flex-wrap">
+        <a href="{% url 'order_history' %}" class="btn btn-primary-shop px-4">
+            <i class="bi bi-clock-history me-1"></i> View My Orders
+        </a>
+        <a href="{% url 'product_list' %}" class="btn btn-outline-shop px-4">
+            <i class="bi bi-arrow-left me-1"></i> Continue Shopping
+        </a>
+    </div>
+</div>
+
+{% endblock %}

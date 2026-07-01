@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}Checkout{% endblock %}
+
+{% block content %}
+
+<!-- Breadcrumb -->
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-shop">
+        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'cart' %}">Cart</a></li>
+        <li class="breadcrumb-item active">Checkout</li>
+    </ol>
+</nav>
+
+<div class="page-header">
+    <h1>Checkout</h1>
+    <p class="text-muted">Review your order details and place your order</p>
+</div>
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+
+        <div class="checkout-card">
+
+            <!-- ========== ORDER SUMMARY ========== -->
+            <h4 class="mb-4" style="font-size: 1.25rem; font-weight: 600; letter-spacing: -0.02em;">Order Summary</h4>
+
+            {% for item in items %}
+            <div class="checkout-item">
+                <div>
+                    <strong class="text-white">{{ item.product.name }}</strong>
+                    <br>
+                    <small class="text-muted small">Quantity: {{ item.quantity }} &times; &#8377;{{ item.product.price }}</small>
+                </div>
+                <div class="text-end">
+                    <strong class="text-white">&#8377;{{ item.get_subtotal }}</strong>
+                </div>
+            </div>
+            {% endfor %}
+
+            <!-- Total price -->
+            <div class="checkout-total d-flex justify-content-between">
+                <span class="fw-semibold">Total Amount</span>
+                <span class="text-white">&#8377;{{ cart.get_total }}</span>
+            </div>
+
+            <hr style="border-color: var(--borders); margin: 28px 0;">
+
+            <!-- Place order form -->
+            <form method="POST" class="show-loading">
+                {% csrf_token %}
+
+                <p class="text-muted small mb-4">
+                    By placing this order, you agree to ShopSphere's terms of service and privacy policy. All sales are final.
+                </p>
+
+                <div class="d-flex gap-3 flex-wrap">
+                    <button type="submit" class="btn btn-primary-shop btn-lg flex-fill py-3">
+                        <i class="bi bi-shield-check me-2"></i> Place Order
+                    </button>
+                    <a href="{% url 'cart' %}" class="btn btn-outline-shop btn-lg py-3 px-4">
+                        Back to Cart
+                    </a>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

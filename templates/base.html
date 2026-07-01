@@ -1,0 +1,246 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}ShopSphere{% endblock %} | Premium E-Commerce</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- ShopSphere Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body>
+
+<!-- ========== STICKY NAVBAR ========== -->
+<nav class="navbar navbar-expand-lg navbar-dark navbar-shopsphere">
+    <div class="container">
+
+        <!-- Logo -->
+        <a class="navbar-brand navbar-brand-shop" href="{% url 'home' %}">
+            <i class="bi bi-globe2 text-accent"></i> Shop<span>Sphere</span>
+        </a>
+
+        <!-- Mobile menu toggle button -->
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarMain">
+
+            <!-- Main navigation links -->
+            <ul class="navbar-nav me-auto ms-lg-3">
+                <li class="nav-item">
+                    <a class="nav-link nav-link-shop" href="{% url 'home' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-shop" href="{% url 'product_list' %}">Products</a>
+                </li>
+
+                <!-- Categories dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link nav-link-shop dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                        Categories
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-shop">
+                        {% for cat in nav_categories %}
+                        <li>
+                            <a class="dropdown-item" href="{% url 'product_list' %}?category={{ cat.id }}">
+                                {{ cat.name }}
+                            </a>
+                        </li>
+                        {% empty %}
+                        <li><span class="dropdown-item text-muted">No categories yet</span></li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            </ul>
+
+            <!-- Search bar -->
+            <form class="d-flex navbar-search me-lg-3 my-2 my-lg-0" method="GET" action="{% url 'product_list' %}">
+                <input class="form-control" type="search" name="search" placeholder="Search products..."
+                       value="{{ request.GET.search }}" aria-label="Search">
+                <button class="btn btn-search" type="submit">
+                    <i class="bi bi-search"></i>
+                </button>
+            </form>
+
+            <!-- Right side: Cart, Profile, Auth -->
+            <ul class="navbar-nav align-items-lg-center gap-2">
+
+                <!-- Cart icon with item count -->
+                <li class="nav-item">
+                    <a class="nav-link cart-icon-link" href="{% url 'cart' %}" title="Shopping Cart">
+                        <i class="bi bi-cart3"></i>
+                        {% if cart_count > 0 %}
+                        <span class="cart-badge">{{ cart_count }}</span>
+                        {% endif %}
+                    </a>
+                </li>
+
+                {% if user.is_authenticated %}
+
+                <!-- Profile dropdown for logged-in users -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link nav-link-shop dropdown-toggle d-flex align-items-center gap-2" href="#" data-bs-toggle="dropdown">
+                        <i class="bi bi-person-circle"></i> {{ user.username }}
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-shop dropdown-menu-end">
+                        <li>
+                            <a class="dropdown-item" href="{% url 'profile' %}">
+                                <i class="bi bi-person me-2"></i> My Profile
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="{% url 'order_history' %}">
+                                <i class="bi bi-clock-history me-2"></i> Order History
+                            </a>
+                        </li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <a class="dropdown-item" href="{% url 'logout' %}">
+                                <i class="bi bi-box-arrow-right me-2"></i> Logout
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                {% else %}
+
+                <!-- Login and Register for guests -->
+                <li class="nav-item">
+                    <a class="nav-link nav-link-shop" href="{% url 'login' %}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link nav-link-shop btn btn-primary-shop text-white px-3 py-1.5" href="{% url 'register' %}" style="border-radius: var(--radius-sm);">Register</a>
+                </li>
+
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- ========== MAIN CONTENT ========== -->
+<main>
+    <div class="container py-5">
+
+        <!-- Django success/error messages -->
+        {% if messages %}
+        <div class="messages-area mb-4">
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-shop alert-dismissible fade show d-flex align-items-center justify-content-between" role="alert">
+                <div class="d-flex align-items-center gap-2">
+                    {% if message.tags == 'success' %}
+                        <i class="bi bi-check-circle-fill"></i>
+                    {% elif message.tags == 'danger' or message.tags == 'error' %}
+                        <i class="bi bi-exclamation-triangle-fill"></i>
+                    {% else %}
+                        <i class="bi bi-info-circle-fill"></i>
+                    {% endif %}
+                    <span>{{ message }}</span>
+                </div>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% block content %}
+        {% endblock %}
+
+    </div>
+</main>
+
+<!-- ========== FOOTER ========== -->
+<footer class="footer-shopsphere">
+    <div class="container">
+        <div class="row g-4">
+
+            <!-- About column -->
+            <div class="col-lg-4 col-md-6">
+                <h5 class="footer-heading d-flex align-items-center gap-2">
+                    <i class="bi bi-globe2 text-primary"></i> ShopSphere
+                </h5>
+                <p class="text-muted small mb-4">
+                    Your destination for fine electronics, style, literature, and lifestyle accessories. Engineered with precision to deliver a premium shopping experience.
+                </p>
+                <div class="footer-socials">
+                    <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                    <a href="#" aria-label="X"><i class="bi bi-twitter-x"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                </div>
+            </div>
+
+            <!-- Quick links column -->
+            <div class="col-lg-3 col-md-6">
+                <h5 class="footer-heading">Shop Links</h5>
+                <a class="footer-link" href="{% url 'home' %}">Home</a>
+                <a class="footer-link" href="{% url 'product_list' %}">All Products</a>
+                <a class="footer-link" href="{% url 'cart' %}">Shopping Cart</a>
+                {% if user.is_authenticated %}
+                <a class="footer-link" href="{% url 'order_history' %}">My Orders</a>
+                {% else %}
+                <a class="footer-link" href="{% url 'login' %}">Login</a>
+                <a class="footer-link" href="{% url 'register' %}">Register</a>
+                {% endif %}
+            </div>
+
+            <!-- Categories column -->
+            <div class="col-lg-2 col-md-6">
+                <h5 class="footer-heading">Categories</h5>
+                {% for cat in nav_categories|slice:":4" %}
+                <a class="footer-link" href="{% url 'product_list' %}?category={{ cat.id }}">
+                    {{ cat.name }}
+                </a>
+                {% empty %}
+                <p class="text-muted small">No categories</p>
+                {% endfor %}
+            </div>
+
+            <!-- Contact column -->
+            <div class="col-lg-3 col-md-6">
+                <h5 class="footer-heading">Contact</h5>
+                <p class="text-muted small mb-2"><i class="bi bi-envelope me-2"></i> support@shopsphere.com</p>
+                <p class="text-muted small mb-2"><i class="bi bi-telephone me-2"></i> +91 98765 43210</p>
+                <p class="text-muted small"><i class="bi bi-clock me-2"></i> Mon - Sat: 9 AM - 6 PM</p>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p class="mb-0">&copy; 2026 ShopSphere. All rights reserved. Built with Django.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- Scroll to top button -->
+<button id="scrollTopBtn" class="scroll-top-btn" title="Back to top">
+    <i class="bi bi-arrow-up"></i>
+</button>
+
+<!-- Loading spinner overlay -->
+<div id="loadingOverlay" class="loading-overlay">
+    <div class="spinner-shop"></div>
+</div>
+
+<!-- Bootstrap 5 JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- ShopSphere custom JavaScript -->
+<script src="{% static 'js/main.js' %}"></script>
+
+{% block extra_js %}{% endblock %}
+
+</body>
+</html>

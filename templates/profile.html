@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title %}My Profile{% endblock %}
+
+{% block content %}
+
+<!-- Breadcrumb -->
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-shop">
+        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+        <li class="breadcrumb-item active">Profile</li>
+    </ol>
+</nav>
+
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+
+        <div class="profile-card">
+
+            <!-- Avatar with first letter of username -->
+            <div class="profile-avatar">
+                {{ request.user.username|first|upper }}
+            </div>
+
+            <h2>{{ request.user.username }}</h2>
+            <p class="text-muted small mb-4"><i class="bi bi-shield-check text-primary me-1"></i> ShopSphere Member</p>
+
+            <!-- User information -->
+            <div class="profile-info-item">
+                <small class="text-muted small uppercase fw-semibold d-block mb-1">Username</small>
+                <span class="fw-semibold text-white">{{ request.user.username }}</span>
+            </div>
+
+            <div class="profile-info-item">
+                <small class="text-muted small uppercase fw-semibold d-block mb-1">Email Address</small>
+                <span class="fw-semibold text-white">{{ request.user.email|default:"Not provided" }}</span>
+            </div>
+
+            <div class="profile-info-item">
+                <small class="text-muted small uppercase fw-semibold d-block mb-1">Member Since</small>
+                <span class="fw-semibold text-white">{{ request.user.date_joined|date:"F d, Y" }}</span>
+            </div>
+
+            <!-- Quick action buttons -->
+            <div class="d-flex gap-3 justify-content-center mt-4 flex-wrap">
+                <a href="{% url 'order_history' %}" class="btn btn-primary-shop px-4">
+                    <i class="bi bi-clock-history me-1"></i> My Orders
+                </a>
+                <a href="{% url 'cart' %}" class="btn btn-outline-shop px-4">
+                    <i class="bi bi-cart3 me-1"></i> My Cart
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

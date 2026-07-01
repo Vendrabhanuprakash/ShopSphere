@@ -1,0 +1,85 @@
+{% extends 'auth_base.html' %}
+
+{% block title %}Register{% endblock %}
+
+{% block auth_content %}
+
+<div class="auth-card">
+
+    <h2>Create Account</h2>
+    <p class="subtitle">Join ShopSphere and start shopping</p>
+
+    <!-- Registration form -->
+    <form method="POST">
+        {% csrf_token %}
+
+        <!-- Show form errors -->
+        {% if form.errors %}
+        <div class="alert alert-danger alert-shop mb-3">
+            <div class="d-flex align-items-start gap-2">
+                <i class="bi bi-exclamation-triangle-fill mt-1"></i>
+                <div>
+                    {% for field, errors in form.errors.items %}
+                        {% for error in errors %}
+                        <p class="mb-0 small">{{ error }}</p>
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Username -->
+        <div class="form-floating-shop">
+            <input type="text" name="username" id="id_username" class="form-control"
+                   placeholder="Username" required autofocus
+                   value="{{ form.username.value|default:'' }}">
+            <label for="id_username">Username</label>
+        </div>
+
+        <!-- Email -->
+        <div class="form-floating-shop">
+            <input type="email" name="email" id="id_email" class="form-control"
+                   placeholder="Email" required
+                   value="{{ form.email.value|default:'' }}">
+            <label for="id_email">Email Address</label>
+        </div>
+
+        <!-- Password with strength indicator -->
+        <div class="form-floating-shop password-toggle-wrap">
+            <input type="password" name="password1" id="id_password1" class="form-control"
+                   placeholder="Password" required>
+            <label for="id_password1">Password</label>
+            <button type="button" class="password-toggle-btn">Show</button>
+        </div>
+        <div class="password-strength">
+            <div id="passwordStrengthBar" class="password-strength-bar"></div>
+        </div>
+        <small class="text-muted d-block mb-4 small" style="font-size: 0.8rem; margin-top: -12px;">
+            <i class="bi bi-info-circle me-1"></i> Use 8+ characters with letters and numbers
+        </small>
+
+        <!-- Confirm Password -->
+        <div class="form-floating-shop password-toggle-wrap">
+            <input type="password" name="password2" id="id_password2" class="form-control"
+                   placeholder="Confirm Password" required>
+            <label for="id_password2">Confirm Password</label>
+            <button type="button" class="password-toggle-btn">Show</button>
+        </div>
+
+        <!-- Register button -->
+        <button type="submit" class="btn btn-primary-shop w-100 mb-4 py-2.5">
+            <i class="bi bi-person-plus me-1"></i> Create Account
+        </button>
+
+        <!-- Login link -->
+        <p class="text-center text-muted mb-0 small">
+            Already have an account?
+            <a href="{% url 'login' %}" class="text-accent fw-medium">Login here</a>
+        </p>
+
+    </form>
+
+</div>
+
+{% endblock %}

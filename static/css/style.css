@@ -1,0 +1,1498 @@
+/* ==========================================================================
+   ShopSphere - Premium Dark-Luxury E-Commerce Stylesheet
+   Theme Inspiration: Linear.app, Vercel, Supabase, Stripe Dashboard
+   ========================================================================== */
+
+/* ---------- 1. Google Font Import ---------- */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+/* ---------- 2. CSS Variables (Strict Color System) ---------- */
+:root {
+    --bg: #0B0909;
+    --surface: #151313;
+    --navbar: #2E4540;
+    --primary: #408175;
+    --primary-hover: #4D9588;
+    --accent: #B5B9F0;
+    --text-primary: #FFFFFF;
+    --text-secondary: #D7D7D7;
+    --borders: rgba(181, 185, 240, 0.15);
+    --card-bg: #171515;
+    --glass-bg: rgba(23, 21, 21, 0.75);
+    --shadow: rgba(0, 0, 0, 0.35);
+    
+    --radius: 12px;
+    --radius-sm: 8px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ---------- 3. Global Reset & Body Styles ---------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: var(--transition);
+}
+
+a:hover {
+    color: var(--accent);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+main {
+    flex: 1;
+}
+
+/* Typography Headings */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--text-primary);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+}
+
+.text-muted {
+    color: var(--text-secondary) !important;
+    opacity: 0.7;
+}
+
+.text-accent {
+    color: var(--accent) !important;
+}
+
+/* ---------- 4. Sticky Navbar ---------- */
+.navbar-shopsphere {
+    background: var(--glass-bg) !important;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--borders);
+    padding: 14px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 30px var(--shadow);
+}
+
+.navbar-brand-shop {
+    font-weight: 700;
+    font-size: 1.4rem;
+    color: var(--text-primary) !important;
+    letter-spacing: -0.03em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.navbar-brand-shop span {
+    color: var(--primary);
+}
+
+.nav-link-shop {
+    color: var(--text-secondary) !important;
+    font-weight: 500;
+    font-size: 0.95rem;
+    padding: 8px 16px !important;
+    border-radius: var(--radius-sm);
+    transition: var(--transition);
+}
+
+.nav-link-shop:hover,
+.nav-link-shop.active {
+    color: var(--text-primary) !important;
+    background: rgba(181, 185, 240, 0.08);
+}
+
+/* Navbar search bar */
+.navbar-search {
+    position: relative;
+    max-width: 280px;
+    display: flex;
+    align-items: center;
+}
+
+.navbar-search .form-control {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--borders);
+    color: var(--text-primary);
+    border-radius: 50px;
+    padding: 8px 40px 8px 16px;
+    font-size: 0.9rem;
+    transition: var(--transition);
+}
+
+.navbar-search .form-control::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.5;
+}
+
+.navbar-search .form-control:focus {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--primary);
+    color: var(--text-primary);
+    box-shadow: 0 0 0 3px rgba(64, 129, 117, 0.15);
+}
+
+.navbar-search .btn-search {
+    position: absolute;
+    right: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 1rem;
+    padding: 6px 12px;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.navbar-search .btn-search:hover {
+    color: var(--primary);
+}
+
+/* Cart icon with badge count */
+.cart-icon-link {
+    position: relative;
+    font-size: 1.25rem;
+    color: var(--text-secondary) !important;
+    padding: 8px 12px !important;
+    border-radius: var(--radius-sm);
+    display: inline-flex;
+    align-items: center;
+    transition: var(--transition);
+}
+
+.cart-icon-link:hover {
+    color: var(--text-primary) !important;
+    background: rgba(181, 185, 240, 0.08);
+}
+
+.cart-badge {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    background: var(--accent);
+    color: var(--bg);
+    font-size: 0.7rem;
+    font-weight: 700;
+    min-width: 18px;
+    height: 18px;
+    border-radius: 10px;
+    padding: 0 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px var(--shadow);
+}
+
+/* Profile dropdown menu */
+.dropdown-menu-shop {
+    background: var(--surface) !important;
+    border: 1px solid var(--borders) !important;
+    border-radius: var(--radius-sm) !important;
+    box-shadow: 0 10px 30px var(--shadow) !important;
+    padding: 6px !important;
+}
+
+.dropdown-menu-shop .dropdown-item {
+    color: var(--text-secondary) !important;
+    padding: 8px 16px !important;
+    border-radius: 6px !important;
+    font-size: 0.9rem !important;
+    font-weight: 500 !important;
+    transition: var(--transition) !important;
+}
+
+.dropdown-menu-shop .dropdown-item:hover {
+    background: rgba(181, 185, 240, 0.08) !important;
+    color: var(--text-primary) !important;
+}
+
+.dropdown-divider {
+    border-color: var(--borders) !important;
+    margin: 6px 0 !important;
+}
+
+/* ---------- 5. Button Styles ---------- */
+.btn-primary-shop {
+    background: var(--primary);
+    border: 1px solid var(--primary);
+    color: var(--text-primary);
+    padding: 10px 24px;
+    border-radius: var(--radius-sm);
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-primary-shop:hover {
+    background: var(--primary-hover);
+    border-color: var(--primary-hover);
+    color: var(--text-primary);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(64, 129, 117, 0.25);
+}
+
+.btn-primary-shop:active {
+    transform: translateY(0);
+}
+
+.btn-outline-shop {
+    background: transparent;
+    border: 1px solid var(--borders);
+    color: var(--text-primary);
+    padding: 10px 24px;
+    border-radius: var(--radius-sm);
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-outline-shop:hover {
+    background: var(--borders);
+    border-color: var(--borders);
+    color: var(--text-primary);
+    transform: translateY(-1px);
+}
+
+.btn-outline-shop:active {
+    transform: translateY(0);
+}
+
+/* ---------- 6. Hero Banner Section ---------- */
+.hero-section {
+    background: radial-gradient(circle at top right, rgba(181, 185, 240, 0.08), transparent 50%),
+                radial-gradient(circle at bottom left, rgba(64, 129, 117, 0.08), transparent 50%),
+                var(--surface);
+    border: 1px solid var(--borders);
+    border-radius: var(--radius);
+    padding: 80px 48px;
+    margin-bottom: 60px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 32px var(--shadow);
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+}
+
+.hero-title span {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-subtitle {
+    font-size: 1.15rem;
+    color: var(--text-secondary);
+    margin-bottom: 32px;
+    max-width: 520px;
+    line-height: 1.6;
+    opacity: 0.85;
+}
+
+.hero-icon-container {
+    opacity: 0.2;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 30px rgba(181, 185, 240, 0.3));
+    animation: pulse 8s ease-in-out infinite alternate;
+}
+
+@keyframes pulse {
+    0% { transform: translateY(0) scale(1); }
+    100% { transform: translateY(-10px) scale(1.05); }
+}
+
+/* ---------- 7. Section Titles ---------- */
+.section-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    text-align: center;
+    letter-spacing: -0.02em;
+}
+
+.section-subtitle {
+    color: var(--text-secondary);
+    text-align: center;
+    margin-bottom: 48px;
+    font-size: 1.05rem;
+    opacity: 0.8;
+}
+
+.section-block {
+    margin-bottom: 80px;
+}
+
+/* ---------- 8. Product Cards ---------- */
+.product-card {
+    background: var(--card-bg);
+    border: 1px solid var(--borders);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 0 4px 20px var(--shadow);
+    transition: var(--transition);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    color: var(--text-primary);
+}
+
+.product-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(181, 185, 240, 0.3);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+}
+
+.product-card-img-wrap {
+    position: relative;
+    height: 240px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.02);
+    border-bottom: 1px solid var(--borders);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition);
+}
+
+.product-card:hover .product-card-img {
+    transform: scale(1.04);
+}
+
+.product-card-body {
+    padding: 24px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-card-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--text-primary);
+    line-height: 1.4;
+}
+
+.product-card-price {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+}
+
+/* Product badges */
+.product-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    padding: 4px 12px;
+    border-radius: 50px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    z-index: 2;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.badge-bestseller {
+    background: rgba(64, 129, 117, 0.85);
+    backdrop-filter: blur(4px);
+    color: var(--text-primary);
+}
+
+.badge-new {
+    background: rgba(181, 185, 240, 0.85);
+    backdrop-filter: blur(4px);
+    color: var(--bg);
+}
+
+.badge-outofstock {
+    background: rgba(220, 53, 69, 0.85);
+    backdrop-filter: blur(4px);
+    color: var(--text-primary);
+}
+
+/* Wishlist heart button */
+.wishlist-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--glass-bg);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--borders);
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 1rem;
+    z-index: 2;
+}
+
+.wishlist-btn:hover {
+    background: var(--accent);
+    color: var(--bg);
+    transform: scale(1.05);
+}
+
+.wishlist-btn.active {
+    color: #ffd2d2;
+    background: rgba(220, 53, 69, 0.2);
+    border-color: rgba(220, 53, 69, 0.4);
+    color: #ff5e5e;
+}
+
+.wishlist-btn.active:hover {
+    background: #ff5e5e;
+    color: var(--text-primary);
+}
+
+/* Static star ratings */
+.product-rating {
+    color: #FFC73A;
+    font-size: 0.85rem;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.product-rating-text {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    margin-left: 4px;
+    opacity: 0.7;
+}
+
+/* Stock status badges */
+.stock-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    align-self: flex-start;
+}
+
+.stock-in {
+    background: rgba(64, 129, 117, 0.12);
+    color: var(--primary);
+    border: 1px solid rgba(64, 129, 117, 0.2);
+}
+
+.stock-out {
+    background: rgba(220, 53, 69, 0.12);
+    color: #ff8892;
+    border: 1px solid rgba(220, 53, 69, 0.2);
+}
+
+/* ---------- 9. Category Cards ---------- */
+.category-card {
+    background: var(--surface);
+    border: 1px solid var(--borders);
+    border-radius: var(--radius);
+    padding: 36px 24px;
+    text-align: center;
+    transition: var(--transition);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px var(--shadow);
+}
+
+.category-card:hover {
+    background: rgba(64, 129, 117, 0.08);
+    border-color: var(--primary);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(64, 129, 117, 0.15);
+}
+
+.category-icon {
+    font-size: 2.2rem;
+    margin-bottom: 16px;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.category-name {
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--text-primary);
+}
+
+/* ---------- 10. Feature Cards (Why Choose Us) ---------- */
+.feature-card {
+    background: var(--surface);
+    border: 1px solid var(--borders);
+    border-radius: var(--radius);
+    padding: 40px 30px;
+    text-align: center;
+    transition: var(--transition);
+    height: 100%;
+    box-shadow: 0 4px 15px var(--shadow);
+}
+
+.feature-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+}
+
+.feature-icon {
+    width: 56px;
+    height: 56px;
+    background: rgba(181, 185, 240, 0.1);
+    border: 1px solid var(--borders);
+    color: var(--accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 1.4rem;
+}
+
+.feature-card h5 {
+    font-size: 1.15rem;
+    margin-bottom: 10px;
+}
+
+/* ---------- 11. Testimonial Cards ---------- */
+.testimonial-card {
+    background: var(--card-bg);
+    border: 1px solid var(--borders);
+    border-radius: var(--radius);
+    padding: 36px;
+    box-shadow: 0 4px 15px var(--shadow);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.testimonial-text {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+    line-height: 1.7;
+    flex-grow: 1;
+}
+
+.testimonial-author {
+    font-weight: 600;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+}
+
+.testimonial-author::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--primary);
+}
+
+/* ---------- 12. Newsletter Section ---------- */
+.newsletter-section {
+    background: radial-gradient(circle at top right, rgba(64, 129, 117, 0.08), transparent 50%), var(--surface);
+    border: 1px solid var(--borders);
+    border-radius: var(--radius);
+    padding: 60px 48px;
+    text-align: center;
+    box-shadow: 0 8px 30px var(--shadow);
+}
+
+.newsletter-input {
+    border-radius: var(--radius-sm);
+    padding: 12px 20px;
+    border: 1px solid var(--borders);
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text-primary);
+    transition: var(--transition);
+    font-size: 0.95rem;
+}
+
+.newsletter-input:focus {
+    border-color: var(--accent);
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text-primary);
+    box-shadow: 0 0 0 3px rgba(181, 185, 240, 0.15);
+}
+
+/* ---------- 13. Footer ---------- */
+.footer-shopsphere {
+    background: var(--bg);
+    border-top: 1px solid var(--borders);
+    padding: 70px 0 30px;
+    margin-top: 80px;
+}
+
+.footer-heading {
+    font-size: 1.05rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 24px;
+    color: var(--text-primary);
+}
+
+.footer-link {
+    display: block;
+    color: var(--text-secondary);
+    padding: 6px 0;
+    font-size: 0.95rem;
+    transition: var(--transition);
+    opacity: 0.85;
+}
+
+.footer-link:hover {
+    color: var(--accent);
+    padding-left: 4px;
+}
+
+.footer-socials {
+    display: flex;
+    gap: 16px;
+    margin-top: 16px;
+}
+
+.footer-socials a {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--borders);
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    transition: var(--transition);
+}
+
+.footer-socials a:hover {
+    background: var(--primary);
+    color: var(--text-primary);
+    border-color: var(--primary);
+    transform: translateY(-2px);
+}
+
+.footer-bottom {
+    border-top: 1px solid var(--borders);
+    padding-top: 30px;
+    margin-top: 50px;
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    opacity: 0.7;
+}
+
+/* ---------- 14. Breadcrumb Navigation ---------- */
+.breadcrumb-shop {
+    background: transparent;
+    padding: 0;
+    margin-bottom: 28px;
+}
+
+.breadcrumb-shop .breadcrumb-item a {
+    color: var(--accent);
+    font-size: 0.9rem;
+}
+
+.breadcrumb-shop .breadcrumb-item.active {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    opacity: 0.65;
+}
+
+.breadcrumb-shop .breadcrumb-item + .breadcrumb-item::before {
+    color: var(--text-secondary);
+    opacity: 0.4;
+    content: "/";
+}
+
+.page-header {
+    margin-bottom: 36px;
+}
+
+.page-header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    margin-bottom: 8px;
+}
+
+/* ---------- 15. Filter Bar (Product List) ---------- */
+.filter-bar {
+    background: var(--surface);
+    border: 1px solid var(--borders);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 15px var(--shadow);
+}
+
+.filter-bar .form-control,
+.filter-bar .form-select {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--borders);
+    color: var(--text-primary);
+    border-radius: var(--radius-sm);
+    padding: 10px 16px;
+    font-size: 0.95rem;
+    transition: var(--transition);
+}
+
+.filter-bar .form-control::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.5;
+}
+
+.filter-bar .form-control:focus,
+.filter-bar .form-select:focus {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(64, 129, 117, 0.15);
+    color: var(--text-primary);
+}
+
+.filter-bar .form-select option {
+    background: var(--surface);
+    color: var(--text-primary);
+}
+
+/* ---------- 16. Pagination ---------- */
+.pagination-shop .page-link {
+    background: var(--surface);
+    border: 1px solid var(--borders);
+    color: var(--text-secondary);
+    border-radius: var(--radius-sm);
+    margin: 0 4px;
+    padding: 10px 18px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: var(--transition);
+}
+
+.pagination-shop .page-link:hover {
+    background: var(--accent);
+    color: var(--bg);
+    border-color: var(--accent);
+}
+
+.pagination-shop .page-item.active .page-link {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: var(--text-primary);
+}
+
+.pagination-shop .page-item.disabled .page-link {
+    background: rgba(255, 255, 255, 0.02);
+    border-color: var(--borders);
+    color: var(--text-secondary);
+    opacity: 0.4;
+}
+
+/* ---------- 17. Product Detail Page ---------- */
+.product-detail-img {
+    border-radius: var(--radius);
+    border: 1px solid var(--borders);
+    background: rgba(255, 255, 255, 0.02);
+    padding: 30px;
+    box-shadow: 0 8px 30px var(--shadow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+}
+
+.product-detail-info {
+    background: var(--surface);
+    border: 1px solid var(--borders);
+    border-radius: var(--radius);
+    padding: 40px;
+    box-shadow: 0 8px 30px var(--shadow);
+}
+
+.product-detail-price {
+    font-size: 2.2rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+}
+
+/* Quantity selector */
+.quantity-selector {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid var(--borders);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.qty-btn {
+    width: 44px;
+    height: 44px;
+    border: none;
+    background: transparent;
+    color: var(--text-primary);
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.qty-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.qty-input {
+    width: 60px;
+    height: 44px;
+    text-align: center;
+    border: none;
+    border-left: 1px solid var(--borders);
+    border-right: 1px solid var(--borders);
+    background: transparent;
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+/* Hide arrow keys inside numeric input */
+.qty-input::-webkit-outer-spin-button,
+.qty-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Static review cards */
+.review-card {
+    background: var(--card-bg);
+    border: 1px solid var(--borders);
+    border-radius: var(--radius-sm);
+    padding: 24px;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 15px var(--shadow);
+}
+
+.review-card p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+}
+
+/* ---------- 18. Cart Page ---------- */
+.cart-item-card {
+    background: var(--card-bg);
+    border: 1px solid var(--borders);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px var(--shadow);
+    color: var(--text-primary);
+}
+
+.cart-item-img {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--borders);
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.cart-summary {
+    background: var(--surface);
+    border: 1px solid var(--borders);
+    border-radius: var(--radius);
+    padding: 36px;
+    position: sticky;
+    top: 110px;
+    box-shadow: 0 8px 30px var(--shadow);
+}
+
+.cart-empty {
+    text-align: center;
+    padding: 80px 24px;
+    background: var(--surface);
+    border: 1px solid var(--borders);
+    border-radius: var(--radius);
+    box-shadow: 0 8px 30px var(--shadow);
+}
+
+.cart-empty-icon {
+    font-size: 4rem;
+    margin-bottom: 24px;
+    color: var(--borders);
+    opacity: 0.8;
+}
+
+/* ---------- 19. Checkout Page ---------- */
+.checkout-card {
+    background: var(--surface);
+    border: 1px solid var(--borders);
+    border-radius: var(--radius);
+    padding: 40px;
+    box-shadow: 0 8px 30px var(--shadow);
+}
+
+.checkout-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--borders);
+}
+
+.checkout-total {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    padding-top: 20px;
+}
+
+/* ---------- 20. Order History Cards ---------- */
+.order-card {
+    background: var(--card-bg);
+    border: 1px solid var(--borders);
+    border-radius: var(--radius);
+    padding: 28px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px var(--shadow);
+    transition: var(--transition);
+}
+
+.order-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+.order-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 14px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.status-pending {
+    background: rgba(255, 193, 7, 0.12);
+    color: #ffc107;
+    border: 1px solid rgba(255, 193, 7, 0.2);
+}
+
+.status-processing {
+    background: rgba(181, 185, 240, 0.12);
+    color: var(--accent);
+    border: 1px solid rgba(181, 185, 240, 0.2);
+}
+
+.status-delivered {
+    background: rgba(64, 129, 117, 0.12);
+    color: var(--primary);
+    border: 1px solid rgba(64, 129, 117, 0.2);
+}
+
+/* ---------- 21. Profile Page ---------- */
+.profile-card {
+    background: var(--surface);
+    border: 1px solid var(--borders);
+    border-radius: var(--radius);
+    padding: 48px;
+    text-align: center;
+    box-shadow: 0 8px 30px var(--shadow);
+}
+
+.profile-avatar {
+    width: 96px;
+    height: 96px;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin: 0 auto 24px;
+    color: var(--text-primary);
+    box-shadow: 0 0 20px rgba(64, 129, 117, 0.3);
+}
+
+.profile-info-item {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--borders);
+    border-radius: var(--radius-sm);
+    padding: 16px 20px;
+    margin-bottom: 16px;
+    text-align: left;
+}
+
+/* ---------- 22. Auth Pages (Login / Register) ---------- */
+.auth-page {
+    min-height: 100vh;
+    display: flex;
+}
+
+.auth-left {
+    flex: 1;
+    background: radial-gradient(circle at top right, rgba(181, 185, 240, 0.12), transparent 50%),
+                radial-gradient(circle at bottom left, rgba(64, 129, 117, 0.12), transparent 50%),
+                var(--surface);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 60px;
+    text-align: center;
+    border-right: 1px solid var(--borders);
+    position: relative;
+    overflow: hidden;
+}
+
+.auth-left h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.auth-left p {
+    color: var(--text-secondary);
+    max-width: 420px;
+    font-size: 1.05rem;
+    opacity: 0.85;
+}
+
+.auth-left::before {
+    content: '';
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: var(--primary);
+    filter: blur(160px);
+    opacity: 0.15;
+    top: 20%;
+    left: 20%;
+    pointer-events: none;
+}
+
+.auth-illustration {
+    font-size: 5rem;
+    margin-bottom: 30px;
+    color: var(--accent);
+    filter: drop-shadow(0 0 20px rgba(181, 185, 240, 0.2));
+}
+
+.auth-right {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    background: var(--bg);
+}
+
+.auth-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--borders);
+    border-radius: var(--radius);
+    padding: 48px;
+    width: 100%;
+    max-width: 460px;
+    box-shadow: 0 15px 35px var(--shadow);
+}
+
+.auth-card h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.auth-card .subtitle {
+    color: var(--text-secondary);
+    margin-bottom: 36px;
+    font-size: 0.95rem;
+    opacity: 0.8;
+}
+
+/* Floating label form inputs */
+.form-floating-shop {
+    position: relative;
+    margin-bottom: 24px;
+}
+
+.form-floating-shop .form-control {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--borders);
+    color: var(--text-primary);
+    border-radius: var(--radius-sm);
+    padding: 18px 16px 6px;
+    height: 58px;
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+.form-floating-shop .form-control:focus {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(181, 185, 240, 0.15);
+    color: var(--text-primary);
+}
+
+.form-floating-shop label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 18px 16px;
+    font-size: 1rem;
+    color: var(--text-secondary);
+    pointer-events: none;
+    transform-origin: 0 0;
+    transition: transform 0.15s ease-in-out, opacity 0.15s ease-in-out;
+    opacity: 0.6;
+}
+
+/* Focus and Auto-fill states for floating labels */
+.form-floating-shop .form-control:focus ~ label,
+.form-floating-shop .form-control:not(:placeholder-shown) ~ label {
+    transform: scale(0.8) translateY(-10px) translateX(2px);
+    opacity: 0.85;
+    color: var(--accent);
+}
+
+.password-toggle-wrap {
+    position: relative;
+}
+
+.password-toggle-wrap .form-control {
+    padding-right: 50px;
+}
+
+.password-toggle-btn {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 500;
+    opacity: 0.7;
+    transition: var(--transition);
+    z-index: 10;
+}
+
+.password-toggle-btn:hover {
+    opacity: 1;
+    color: var(--text-primary);
+}
+
+/* Password strength indicator bar */
+.password-strength {
+    height: 4px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.06);
+    margin-top: -12px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.password-strength-bar {
+    height: 100%;
+    width: 0%;
+    border-radius: 4px;
+    transition: var(--transition);
+}
+
+.strength-weak {
+    background: #dc3545;
+    width: 33%;
+}
+
+.strength-medium {
+    background: #ffc107;
+    width: 66%;
+}
+
+.strength-strong {
+    background: var(--primary);
+    width: 100%;
+}
+
+/* ---------- 23. Alert Messages ---------- */
+.alert-shop {
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--borders);
+    padding: 16px 20px;
+    font-size: 0.95rem;
+    background: var(--surface);
+    color: var(--text-primary);
+}
+
+.alert-success {
+    background: rgba(64, 129, 117, 0.12) !important;
+    border-color: rgba(64, 129, 117, 0.3) !important;
+    color: var(--primary) !important;
+}
+
+.alert-danger, .alert-error {
+    background: rgba(220, 53, 69, 0.12) !important;
+    border-color: rgba(220, 53, 69, 0.3) !important;
+    color: #ff8892 !important;
+}
+
+.alert-warning {
+    background: rgba(255, 193, 7, 0.12) !important;
+    border-color: rgba(255, 193, 7, 0.3) !important;
+    color: #ffc107 !important;
+}
+
+.alert-info {
+    background: rgba(181, 185, 240, 0.12) !important;
+    border-color: rgba(181, 185, 240, 0.3) !important;
+    color: var(--accent) !important;
+}
+
+/* ---------- 24. 404 Error Page ---------- */
+.error-page {
+    text-align: center;
+    padding: 100px 24px;
+}
+
+.error-code {
+    font-size: 9rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1;
+    letter-spacing: -0.05em;
+    margin-bottom: 20px;
+}
+
+/* ---------- 25. Order Success Page ---------- */
+.success-card {
+    background: var(--surface);
+    border: 1px solid var(--borders);
+    border-radius: var(--radius);
+    padding: 60px 48px;
+    text-align: center;
+    max-width: 540px;
+    margin: 40px auto;
+    box-shadow: 0 8px 30px var(--shadow);
+}
+
+.success-icon {
+    width: 72px;
+    height: 72px;
+    background: rgba(64, 129, 117, 0.12);
+    border: 1px solid rgba(64, 129, 117, 0.3);
+    color: var(--primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.2rem;
+    margin: 0 auto 30px;
+}
+
+.success-details-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--borders);
+    border-radius: var(--radius-sm);
+    padding: 24px;
+    color: var(--text-primary);
+}
+
+/* ---------- 26. Scroll To Top Button ---------- */
+.scroll-top-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 46px;
+    height: 46px;
+    background: var(--primary);
+    color: var(--text-primary);
+    border: none;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    box-shadow: 0 4px 15px var(--shadow);
+    opacity: 0;
+    visibility: hidden;
+    transition: var(--transition);
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.scroll-top-btn.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.scroll-top-btn:hover {
+    background: var(--primary-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(64, 129, 117, 0.35);
+}
+
+/* ---------- 27. Loading Spinner ---------- */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(11, 9, 9, 0.8);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.loading-overlay.show {
+    display: flex;
+}
+
+.spinner-shop {
+    width: 48px;
+    height: 48px;
+    border: 3px solid rgba(181, 185, 240, 0.1);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: spin 0.8s cubic-bezier(0.5, 0.1, 0.4, 0.9) infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ---------- 28. Responsive Design ---------- */
+@media (max-width: 991px) {
+    .hero-title {
+        font-size: 2.6rem;
+    }
+
+    .hero-section {
+        padding: 60px 36px;
+    }
+
+    .auth-left {
+        display: none;
+    }
+    
+    .auth-right {
+        padding: 24px;
+    }
+    
+    .auth-card {
+        padding: 36px 24px;
+    }
+}
+
+@media (max-width: 767px) {
+    .hero-title {
+        font-size: 2.2rem;
+    }
+
+    .section-title {
+        font-size: 1.8rem;
+    }
+
+    .product-detail-price {
+        font-size: 1.8rem;
+    }
+
+    .navbar-search {
+        max-width: 100%;
+        margin: 12px 0;
+    }
+
+    .cart-summary {
+        position: static;
+        margin-top: 24px;
+    }
+    
+    .footer-shopsphere {
+        padding: 50px 0 20px;
+    }
+    
+    .footer-heading {
+        margin-bottom: 16px;
+        margin-top: 12px;
+    }
+}

@@ -1,0 +1,61 @@
+{% extends 'auth_base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block auth_content %}
+
+<div class="auth-card">
+
+    <h2>Welcome Back</h2>
+    <p class="subtitle">Sign in to your ShopSphere account</p>
+
+    <!-- Login form -->
+    <form method="POST">
+        {% csrf_token %}
+
+        <!-- Show form errors if login fails -->
+        {% if form.errors %}
+        <div class="alert alert-danger alert-shop mb-3 d-flex align-items-center gap-2">
+            <i class="bi bi-exclamation-triangle-fill"></i>
+            <span>Invalid username or password. Please try again.</span>
+        </div>
+        {% endif %}
+
+        <!-- Username field with floating label -->
+        <div class="form-floating-shop">
+            <input type="text" name="username" id="id_username" class="form-control"
+                   placeholder="Username" required autofocus
+                   value="{{ form.username.value|default:'' }}">
+            <label for="id_username">Username</label>
+        </div>
+
+        <!-- Password field with show/hide toggle -->
+        <div class="form-floating-shop password-toggle-wrap">
+            <input type="password" name="password" id="id_password" class="form-control"
+                   placeholder="Password" required>
+            <label for="id_password">Password</label>
+            <button type="button" class="password-toggle-btn">Show</button>
+        </div>
+
+        <!-- Remember me checkbox -->
+        <div class="form-check mb-4">
+            <input type="checkbox" class="form-check-input" id="rememberMe" style="background-color: rgba(255,255,255,0.05); border-color: var(--borders);">
+            <label class="form-check-label text-muted small" for="rememberMe">Remember me</label>
+        </div>
+
+        <!-- Login button -->
+        <button type="submit" class="btn btn-primary-shop w-100 mb-4 py-2.5">
+            <i class="bi bi-box-arrow-in-right me-1"></i> Login
+        </button>
+
+        <!-- Register link -->
+        <p class="text-center text-muted mb-0 small">
+            Don't have an account?
+            <a href="{% url 'register' %}" class="text-accent fw-medium">Register here</a>
+        </p>
+
+    </form>
+
+</div>
+
+{% endblock %}

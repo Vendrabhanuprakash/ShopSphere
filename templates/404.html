@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Page Not Found{% endblock %}
+
+{% block content %}
+
+<div class="error-page">
+    <div class="error-code">404</div>
+    <h2 class="text-white mt-3 mb-3" style="font-size: 1.8rem; font-weight: 700; letter-spacing: -0.02em;">Page Not Found</h2>
+    <p class="text-muted mb-4 small" style="max-width: 440px; margin: 0 auto; line-height: 1.6;">
+        The page you are looking for does not exist, has been removed, or is temporarily unavailable. Let's get you back on track.
+    </p>
+    <div class="d-flex gap-3 justify-content-center flex-wrap">
+        <a href="{% url 'home' %}" class="btn btn-primary-shop px-4">
+            <i class="bi bi-house me-1"></i> Go to Homepage
+        </a>
+        <a href="{% url 'product_list' %}" class="btn btn-outline-shop px-4">
+            <i class="bi bi-bag me-1"></i> Browse Products
+        </a>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,208 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+<!-- ========== HERO BANNER ========== -->
+<section class="hero-section">
+    <div class="row align-items-center g-4">
+        <div class="col-lg-7">
+            <h1 class="hero-title">
+                Discover Premium<br>
+                <span>Winter Collection</span>
+            </h1>
+            <p class="hero-subtitle">
+                Shop the finest electronics, high-end fashion, curated books, and luxury products. Elevate your lifestyle with ShopSphere.
+            </p>
+            <a href="{% url 'product_list' %}" class="btn btn-primary-shop btn-lg px-4 py-2.5">
+                Shop Now <i class="bi bi-arrow-right ms-2"></i>
+            </a>
+        </div>
+        <div class="col-lg-5 d-none d-lg-block text-center">
+            <div class="hero-icon-container">
+                <i class="bi bi-cart3" style="font-size: 10rem;"></i>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ========== FEATURED PRODUCTS ========== -->
+<section class="section-block">
+    <h2 class="section-title">Featured Products</h2>
+    <p class="section-subtitle">Hand-picked items just for you</p>
+
+    <div class="row">
+        {% for product in featured_products %}
+            {% include 'partials/product_card.html' %}
+        {% empty %}
+        <div class="col-12 text-center text-muted py-4">
+            <p><i class="bi bi-info-circle me-2"></i>No products available yet. Check back soon!</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="text-center mt-4">
+        <a href="{% url 'product_list' %}" class="btn btn-outline-shop px-4">View All Products</a>
+    </div>
+</section>
+
+
+<!-- ========== CATEGORIES SECTION ========== -->
+<section class="section-block">
+    <h2 class="section-title">Shop by Category</h2>
+    <p class="section-subtitle">Browse our curated collections</p>
+
+    <div class="row g-4">
+        {% for category in categories %}
+        <div class="col-6 col-md-4 col-lg-3">
+            <a href="{% url 'product_list' %}?category={{ category.id }}">
+                <div class="category-card">
+                    <div class="category-icon">
+                        {% if "electronic" in category.name|lower %}
+                            <i class="bi bi-laptop"></i>
+                        {% elif "fashion" in category.name|lower or "cloth" in category.name|lower %}
+                            <i class="bi bi-tag"></i>
+                        {% elif "book" in category.name|lower %}
+                            <i class="bi bi-book"></i>
+                        {% else %}
+                            <i class="bi bi-bag"></i>
+                        {% endif %}
+                    </div>
+                    <div class="category-name">{{ category.name }}</div>
+                </div>
+            </a>
+        </div>
+        {% empty %}
+        <div class="col-12 text-center text-muted py-4">
+            <p><i class="bi bi-info-circle me-2"></i>Categories coming soon!</p>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+
+<!-- ========== WHY CHOOSE SHOPSPHERE ========== -->
+<section class="section-block">
+    <h2 class="section-title">Why Choose ShopSphere</h2>
+    <p class="section-subtitle">The best shopping experience, guaranteed</p>
+
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="bi bi-truck"></i>
+                </div>
+                <h5>Free Shipping</h5>
+                <p class="text-muted mb-0 small">Free delivery on all orders above &#8377;999</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="bi bi-shield-lock"></i>
+                </div>
+                <h5>Secure Payment</h5>
+                <p class="text-muted mb-0 small">100% secure checkout with encrypted transactions</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="bi bi-arrow-counterclockwise"></i>
+                </div>
+                <h5>Easy Returns</h5>
+                <p class="text-muted mb-0 small">30-day hassle-free return policy on all products</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ========== BEST SELLING PRODUCTS ========== -->
+<section class="section-block">
+    <h2 class="section-title">Best Sellers</h2>
+    <p class="section-subtitle">Our most popular products loved by customers</p>
+
+    <div class="row">
+        {% for product in best_sellers %}
+            {% include 'partials/product_card.html' %}
+        {% empty %}
+        <div class="col-12 text-center text-muted py-4">
+            <p><i class="bi bi-info-circle me-2"></i>Best sellers will appear here soon!</p>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+
+<!-- ========== CUSTOMER TESTIMONIALS ========== -->
+<section class="section-block">
+    <h2 class="section-title">What Our Customers Say</h2>
+    <p class="section-subtitle">Real reviews from real shoppers</p>
+
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="testimonial-card">
+                <div class="product-rating mb-3">
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                </div>
+                <p class="testimonial-text">
+                    "Amazing quality products and super fast delivery! ShopSphere has quickly become my absolute go-to online store for electronics."
+                </p>
+                <div class="testimonial-author">Priya Sharma</div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="testimonial-card">
+                <div class="product-rating mb-3">
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                </div>
+                <p class="testimonial-text">
+                    "The website is so easy to use, navigation is fast, and the design is extremely elegant. Highly recommended for students and professionals!"
+                </p>
+                <div class="testimonial-author">Rahul Verma</div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="testimonial-card">
+                <div class="product-rating mb-3">
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star" style="opacity: 0.4;"></i>
+                </div>
+                <p class="testimonial-text">
+                    "Great prices and excellent customer support. I ordered clothing and electronics, and everything arrived in absolute pristine condition."
+                </p>
+                <div class="testimonial-author">Ananya Patel</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ========== NEWSLETTER SECTION ========== -->
+<section class="newsletter-section section-block">
+    <h2 class="section-title">Stay in the Loop</h2>
+    <p class="section-subtitle">Subscribe for exclusive deals and new arrivals</p>
+
+    <form id="newsletterForm" class="d-flex flex-column flex-sm-row gap-3 justify-content-center align-items-center max-w-md mx-auto">
+        <input type="email" class="form-control newsletter-input w-100" placeholder="Enter your email address" required style="max-width: 320px;">
+        <button type="submit" class="btn btn-primary-shop px-4 py-2.5">
+            Subscribe <i class="bi bi-send ms-1"></i>
+        </button>
+    </form>
+</section>
+
+{% endblock %}

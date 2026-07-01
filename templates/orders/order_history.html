@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block title %}Order History{% endblock %}
+
+{% block content %}
+
+<!-- Breadcrumb -->
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-shop">
+        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+        <li class="breadcrumb-item active">My Orders</li>
+    </ol>
+</nav>
+
+<div class="page-header">
+    <h1>Order History</h1>
+    <p class="text-muted">Track and review all your past and current orders</p>
+</div>
+
+{% if orders %}
+
+<!-- ========== ORDER CARDS ========== -->
+{% for order in orders %}
+<div class="order-card">
+    <div class="row align-items-center g-3">
+
+        <div class="col-md-3">
+            <small class="text-muted small uppercase fw-semibold">Order ID</small>
+            <h5 class="mb-0 text-white mt-1">#{{ order.id }}</h5>
+        </div>
+
+        <div class="col-md-3">
+            <small class="text-muted small uppercase fw-semibold">Total Amount</small>
+            <h5 class="mb-0 text-white mt-1">&#8377;{{ order.total_amount }}</h5>
+        </div>
+
+        <div class="col-md-3">
+            <small class="text-muted small uppercase fw-semibold">Status</small>
+            <div class="mt-1">
+                {% if order.status == 'Pending' %}
+                <span class="order-status status-pending">
+                    <i class="bi bi-hourglass-split me-1"></i> {{ order.status }}
+                </span>
+                {% elif order.status == 'Processing' %}
+                <span class="order-status status-processing">
+                    <i class="bi bi-gear-fill me-1"></i> {{ order.status }}
+                </span>
+                {% elif order.status == 'Delivered' %}
+                <span class="order-status status-delivered">
+                    <i class="bi bi-check-circle-fill me-1"></i> {{ order.status }}
+                </span>
+                {% else %}
+                <span class="order-status">
+                    <i class="bi bi-info-circle me-1"></i> {{ order.status }}
+                </span>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <small class="text-muted small uppercase fw-semibold">Order Date</small>
+            <p class="mb-0 text-white mt-1" style="font-size: 0.95rem;">{{ order.created_at|date:"M d, Y" }}</p>
+            <small class="text-muted small" style="opacity: 0.6;">{{ order.created_at|time:"h:i A" }}</small>
+        </div>
+
+    </div>
+</div>
+{% endfor %}
+
+{% else %}
+
+<!-- Empty state -->
+<div class="text-center py-5">
+    <div class="text-muted mb-3">
+        <i class="bi bi-box-seam" style="font-size: 4rem; opacity: 0.3;"></i>
+    </div>
+    <h4 class="mt-3">No orders yet</h4>
+    <p class="text-muted small mb-4">Start shopping to see your orders here.</p>
+    <a href="{% url 'product_list' %}" class="btn btn-primary-shop px-4">
+        <i class="bi bi-bag me-1"></i> Browse Products
+    </a>
+</div>
+
+{% endif %}
+
+{% endblock %}

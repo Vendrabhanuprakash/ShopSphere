@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+
+{% block title %}Products{% endblock %}
+
+{% block content %}
+
+<!-- Breadcrumb navigation -->
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-shop">
+        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+        <li class="breadcrumb-item active">Products</li>
+    </ol>
+</nav>
+
+<div class="page-header">
+    <h1>All Products</h1>
+    <p class="text-muted">Browse our complete collection of high-quality goods</p>
+</div>
+
+
+<!-- ========== SEARCH & CATEGORY FILTER ========== -->
+<div class="filter-bar">
+    <form method="GET" action="{% url 'product_list' %}" class="row g-3 align-items-end">
+
+        <!-- Search box -->
+        <div class="col-md-5">
+            <label class="form-label text-muted small fw-semibold">Search</label>
+            <div class="input-group">
+                <span class="input-group-text bg-transparent border-end-0" style="border-color: var(--borders); color: var(--text-secondary); opacity: 0.5;">
+                    <i class="bi bi-search"></i>
+                </span>
+                <input type="text" name="search" class="form-control border-start-0"
+                       placeholder="Search by product name..."
+                       value="{{ request.GET.search }}" style="border-color: var(--borders);">
+            </div>
+        </div>
+
+        <!-- Category filter dropdown -->
+        <div class="col-md-4">
+            <label class="form-label text-muted small fw-semibold">Category</label>
+            <select name="category" class="form-select">
+                <option value="">All Categories</option>
+                {% for cat in categories %}
+                <option value="{{ cat.id }}"
+                    {% if request.GET.category == cat.id|stringformat:"s" %}selected{% endif %}>
+                    {{ cat.name }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Filter button -->
+        <div class="col-md-3">
+            <button type="submit" class="btn btn-primary-shop w-100 py-2.5">
+                <i class="bi bi-funnel me-1"></i> Apply Filters
+            </button>
+        </div>
+    </form>
+</div>
+
+
+<!-- ========== PRODUCT GRID ========== -->
+<div class="row">
+    {% for product in page_obj %}
+        {% include 'partials/product_card.html' %}
+    {% empty %}
+    <div class="col-12 text-center py-5">
+        <div class="text-muted mb-3">
+            <i class="bi bi-search" style="font-size: 4rem; opacity: 0.3;"></i>
+        </div>
+        <h4 class="mt-3">No products found</h4>
+        <p class="text-muted">Try a different search term or category filter.</p>
+        <a href="{% url 'product_list' %}" class="btn btn-outline-shop mt-2">
+            <i class="bi bi-arrow-left me-1"></i> Clear Filters
+        </a>
+    </div>
+    {% endfor %}
+</div>
+
+
+<!-- ========== PAGINATION ========== -->
+{% if page_obj.has_other_pages %}
+<nav class="mt-7" aria-label="Product pagination">
+    <ul class="pagination pagination-shop justify-content-center">
+
+        <!-- Previous page -->
+        {% if page_obj.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}" aria-label="Previous">
+                <i class="bi bi-chevron-left"></i> Prev
+            </a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <span class="page-link"><i class="bi bi-chevron-left"></i> Prev</span>
+        </li>
+        {% endif %}
+
+        <!-- Page numbers -->
+        {% for num in page_obj.paginator.page_range %}
+        <li class="page-item {% if page_obj.number == num %}active{% endif %}">
+            <a class="page-link" href="?page={{ num }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}">
+                {{ num }}
+            </a>
+        </li>
+        {% endfor %}
+
+        <!-- Next page -->
+        {% if page_obj.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}{% if request.GET.category %}&category={{ request.GET.category }}{% endif %}" aria-label="Next">
+                Next <i class="bi bi-chevron-right"></i>
+            </a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <span class="page-link">Next <i class="bi bi-chevron-right"></i></span>
+        </li>
+        {% endif %}
+
+    </ul>
+</nav>
+{% endif %}
+
+{% endblock %}

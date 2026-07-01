@@ -1,0 +1,179 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block content %}
+
+<!-- Breadcrumb navigation -->
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-shop">
+        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'product_list' %}">Products</a></li>
+        <li class="breadcrumb-item active">{{ product.name }}</li>
+    </ol>
+</nav>
+
+<div class="row g-5 mb-5">
+
+    <!-- ========== PRODUCT IMAGE ========== -->
+    <div class="col-lg-6">
+        <div class="product-detail-img">
+            {% if product.image %}
+            <img src="{{ product.image.url }}" class="img-fluid rounded" alt="{{ product.name }}"
+                 style="max-height: 480px; object-fit: contain;">
+            {% else %}
+            <div class="py-5 text-center text-muted">
+                <i class="bi bi-image" style="font-size: 6rem; opacity: 0.2;"></i>
+                <p class="text-muted mt-2">No product image available</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- ========== PRODUCT INFORMATION ========== -->
+    <div class="col-lg-6">
+        <div class="product-detail-info">
+
+            <h1 class="h2 mb-2">{{ product.name }}</h1>
+
+            <!-- Static star rating -->
+            <div class="product-rating mb-3">
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star" style="opacity: 0.4;"></i>
+                <span class="product-rating-text">(4.2) &middot; 128 reviews</span>
+            </div>
+
+            <p class="product-detail-price mb-4">&#8377;{{ product.price }}</p>
+
+            <!-- Metadata info items -->
+            <div class="mb-4">
+                <p class="mb-2">
+                    <strong class="text-muted small uppercase">Category</strong><br>
+                    <a href="{% url 'product_list' %}?category={{ product.category.id }}" class="text-accent fw-medium">
+                        {{ product.category.name }}
+                    </a>
+                </p>
+
+                <p class="mb-0 mt-3">
+                    <strong class="text-muted small uppercase">Availability</strong><br>
+                    {% if product.stock > 0 %}
+                    <span class="stock-badge stock-in mt-1">{{ product.stock }} items in stock</span>
+                    {% else %}
+                    <span class="stock-badge stock-out mt-1">Out of Stock</span>
+                    {% endif %}
+                </p>
+            </div>
+
+            <hr style="border-color: var(--borders); margin: 24px 0;">
+
+            <!-- Description -->
+            <div class="mb-4">
+                <strong class="text-muted small uppercase">Description</strong>
+                <p class="mt-2" style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.7;">
+                    {{ product.description }}
+                </p>
+            </div>
+
+            <hr style="border-color: var(--borders); margin: 24px 0;">
+
+            {% if product.stock > 0 %}
+
+            <!-- Quantity selector and Add to Cart form -->
+            {% if user.is_authenticated %}
+            <form method="POST" action="{% url 'add_to_cart' product.id %}" class="show-loading">
+                {% csrf_token %}
+
+                <div class="mb-3">
+                    <label class="form-label text-muted small fw-semibold">SELECT QUANTITY</label>
+                    <br>
+                    <div class="quantity-selector">
+                        <button type="button" class="qty-btn qty-minus">&minus;</button>
+                        <input type="number" name="quantity" class="qty-input" value="1" min="1" max="{{ product.stock }}" readonly>
+                        <button type="button" class="qty-btn qty-plus">&plus;</button>
+                    </div>
+                </div>
+
+                <div class="d-flex gap-3 mt-4">
+                    <button type="submit" class="btn btn-primary-shop btn-lg flex-fill py-3">
+                        <i class="bi bi-cart-plus me-2"></i> Add to Cart
+                    </button>
+                    <button type="button" class="wishlist-btn" data-product-id="{{ product.id }}"
+                            style="position: static; width: 56px; height: 56px; font-size: 1.3rem; border-radius: var(--radius-sm);">
+                        <i class="bi bi-heart"></i>
+                    </button>
+                </div>
+            </form>
+            {% else %}
+            <div class="mt-4">
+                <a href="{% url 'login' %}" class="btn btn-primary-shop btn-lg w-100 py-3">
+                    <i class="bi bi-box-arrow-in-right me-2"></i> Login to Add to Cart
+                </a>
+            </div>
+            {% endif %}
+
+            {% else %}
+            <div class="mt-4">
+                <button class="btn btn-outline-shop btn-lg w-100 py-3" disabled>
+                    <i class="bi bi-exclamation-octagon me-2"></i> Out of Stock
+                </button>
+            </div>
+            {% endif %}
+
+        </div>
+    </div>
+</div>
+
+
+<!-- ========== CUSTOMER REVIEWS (Static) ========== -->
+<section class="section-block">
+    <h3 class="mb-4" style="font-size: 1.4rem;">Customer Reviews</h3>
+
+    <div class="row g-4">
+        <div class="col-md-6">
+            <div class="review-card">
+                <div class="product-rating mb-2">
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                </div>
+                <p class="mb-2">"Excellent product! Exactly as described. Extremely fast shipping too."</p>
+                <small class="text-muted small">&mdash; Verified Buyer, 2 weeks ago</small>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="review-card">
+                <div class="product-rating mb-2">
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star" style="opacity: 0.4;"></i>
+                </div>
+                <p class="mb-2">"Good quality for the price. Very comfortable and fits well. Would recommend."</p>
+                <small class="text-muted small">&mdash; Verified Buyer, 1 month ago</small>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ========== RELATED PRODUCTS ========== -->
+{% if related_products %}
+<section class="section-block">
+    <h3 class="mb-4" style="font-size: 1.4rem;">Related Products</h3>
+    <p class="text-muted mb-4 mt-n3">More collections from {{ product.category.name }}</p>
+
+    <div class="row">
+        {% for product in related_products %}
+            {% include 'partials/product_card.html' %}
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+
+{% endblock %}
